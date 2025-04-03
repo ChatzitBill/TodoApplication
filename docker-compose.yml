@@ -1,0 +1,27 @@
+
+
+
+services:
+  frontend_app:
+    build:
+      context: ./TodoApp
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"  # Map container port 80 to localhost:8080
+    depends_on:
+      - backend_app
+    networks:
+      - todo-network
+
+  backend_app:
+    build:
+      context: ./TodoApi
+      dockerfile: Dockerfile
+    ports:
+      - "5135:5135"
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+    driver: bridge
